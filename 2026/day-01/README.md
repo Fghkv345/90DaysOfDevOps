@@ -1,99 +1,67 @@
 # Day 01 – Introduction to DevOps and Cloud
 
 ## Task
-Today’s goal is to **set the foundation for your DevOps journey**.
 
-You will create a **90-day personal DevOps learning plan** that clearly defines:
-- What is your understanding of DevOps and Cloud Engineering?
-- Why you are starting learning DevOps & Cloud?
-- Where do you want to reach?
-- How you will stay consistent every single day?
+Today's goal is to set the foundation for my DevOps journey.
 
-This is not a generic plan.  
-This is your **career execution blueprint** for the next 90 days.
+I will create a 90-day personal DevOps learning plan that clearly defines:
 
----
+- My understanding of DevOps and Cloud Engineering
+- Why I am learning DevOps & Cloud
+- Where I want to reach after 90 days
+- How I will stay consistent every single day
 
-## Expected Output
-By the end of today, you should have:
-
-- A markdown file named:  
-  `learning-plan.md`
-
-or
-
-- A hand written plan for the next 90 Days (Recommended)
-
-
-The file/note should clearly reflect your intent, discipline, and seriousness toward becoming a DevOps engineer.
+This is not a generic plan. It is my personal career execution blueprint for the next 90 days.
 
 ---
 
-## Guidelines
-Follow these rules while creating your plan:
+# 90-Day DevOps Learning Plan
 
-- Mention your **current level**  
-  (student / fresher / working professional / non-IT background, etc.)
-- Define **3 clear goals** for the next 90 days  
-  (example: deploy a production-grade application on Kubernetes)
-- Define **3 core DevOps skills** you want to build  
-  (example: Linux troubleshooting, CI/CD pipelines, Kubernetes debugging)
-- Allocate a **weekly time budget**  
-  (example: 2–2.5 hours per day on weekdays, 4-6 hours weekends)
-- Keep the document **under 1 page**
-- Be honest and realistic; consistency matters more than perfection
+## Current Level
 
----
+I am a student with good programming knowledge and a strong interest in Cloud Computing, DevOps, Automation, and Infrastructure Engineering.
 
-## Resources
-You may refer to:
+## My Understanding of DevOps and Cloud Engineering
 
-- TrainWithShubham [course curriculum](https://english.trainwithshubham.com/JOSH_BATCH_10_Syllabus_v1.pdf)
-- TrainWithShubham DevOps [roadmap](https://docs.google.com/spreadsheets/d/1eE-NhZQFr545LkP4QNhTgXcZTtkMFeEPNyVXAflXia0/edit?gid=2073716385#gid=2073716385)
-- Your own past experience and career aspirations
+DevOps is a culture and set of practices that combine software development and IT operations to deliver applications faster, more reliably, and with better collaboration. Cloud Engineering focuses on designing, deploying, managing, and optimizing infrastructure and applications using cloud platforms and modern automation tools.
 
-Avoid over-researching today. The focus is **clarity**, not depth.
+## Why I Am Learning DevOps & Cloud
 
----
+I want to build practical skills that are highly relevant in the software industry. DevOps and Cloud Engineering allow me to automate deployments, manage scalable infrastructure, and contribute to modern software delivery processes. My goal is to become job-ready and capable of working on real-world cloud-native projects.
 
-## Why This Matters for DevOps
-DevOps engineers succeed not just because of tools, but because of:
+## Where I Want to Reach in 90 Days
 
-- Discipline
-- Ownership
-- Long-term thinking
-- Ability to execute consistently
+### Goal 1
+Build a strong foundation in Linux, Networking, Git, and Cloud fundamentals.
 
-In real jobs, no one tells you exactly what to do every day.  
-This task trains you to **take ownership of your own growth**, just like a real DevOps engineer.
+### Goal 2
+Create and automate CI/CD pipelines using industry-standard tools.
 
-A clear plan:
-- Reduces confusion
-- Prevents burnout
-- Keeps you focused during tough days
+### Goal 3
+Deploy and manage containerized applications on Kubernetes with monitoring and troubleshooting capabilities.
 
----
+## Core DevOps Skills I Want to Build
 
-## Submission
-1. Fork this `90DaysOfDevOps` repository  
-2. Navigate to the `2026/day-01/` folder  
-3. Add your `learning-plan.md` file  
-4. Commit and push your changes to your fork  
+1. Linux Administration and Troubleshooting
+2. CI/CD Pipeline Development and Automation
+3. Kubernetes Deployment and Debugging
 
----
+## Weekly Time Budget
 
-## Learn in Public
-Share your Day 01 progress on LinkedIn:
+- Weekdays: 2–2.5 hours per day
+- Weekends: 4–6 hours per day
+- Total Weekly Commitment: Approximately 18–22 hours
 
-- Post 2–3 lines on why you’re starting **#90DaysOfDevOps**
-- Share one goal from your learning plan
-- Optional: screenshot of your markdown file or a professional picture
+## How I Will Stay Consistent
 
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
+- Study every day without skipping scheduled sessions.
+- Maintain notes and document key learnings.
+- Complete hands-on labs and mini-projects regularly.
+- Track progress weekly and adjust the plan when needed.
+- Focus on consistency over perfection.
 
+## Commitment Statement
 
-Happy Learning  
-**TrainWithShubham**
+For the next 90 days, I commit to learning, practicing, and building DevOps skills daily. I will prioritize hands-on experience, maintain discipline, and continuously improve my knowledge to move closer to becoming a competent DevOps Engineer.
+
+ 
