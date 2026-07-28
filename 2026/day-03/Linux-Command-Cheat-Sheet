@@ -1,0 +1,87 @@
+Linux Command Cheat Sheet:
+
+A quick-reference toolkit covering process management, file system operations, and network troubleshooting.
+
+1. Process Management
+| Command                   | Usage                                                |
+| ------------------------- | ---------------------------------------------------- |
+| `ps`                      | Display running processes.                           |
+| `ps aux`                  | Show detailed information for all processes.         |
+| `top`                     | Monitor processes and system resources in real time. |
+| `htop`                    | Interactive process viewer (if installed).           |
+| `pgrep <name>`            | Find process IDs by name.                            |
+| `pidof <name>`            | Get the PID of a running program.                    |
+| `kill <PID>`              | Terminate a process by PID.                          |
+| `kill -9 <PID>`           | Forcefully stop a process.                           |
+| `pkill <name>`            | Kill processes by name.                              |
+| `jobs`                    | List background jobs in the current shell.           |
+| `bg`                      | Resume a suspended job in the background.            |
+| `fg`                      | Bring a background job to the foreground.            |
+| `nice -n <value> command` | Start a process with a specific priority.            |
+| `renice <value> -p <PID>` | Change the priority of a running process.            |
+
+2. File System Commands
+| Command                       | Usage                                                   |
+| ----------------------------- | ------------------------------------------------------- |
+| `pwd`                         | Show the current working directory.                     |
+| `ls`                          | List files and directories.                             |
+| `ls -la`                      | Show detailed file information, including hidden files. |
+| `cd <directory>`              | Change directory.                                       |
+| `mkdir <name>`                | Create a new directory.                                 |
+| `rmdir <name>`                | Remove an empty directory.                              |
+| `touch <file>`                | Create an empty file.                                   |
+| `cp <src> <dest>`             | Copy files or directories.                              |
+| `mv <src> <dest>`             | Move or rename files/directories.                       |
+| `rm <file>`                   | Delete a file.                                          |
+| `rm -r <dir>`                 | Delete a directory and its contents.                    |
+| `find <path> -name <file>`    | Search for files by name.                               |
+| `cat <file>`                  | Display file contents.                                  |
+| `less <file>`                 | View file contents page by page.                        |
+| `head <file>`                 | Show the first lines of a file.                         |
+| `tail <file>`                 | Show the last lines of a file.                          |
+| `du -sh <dir>`                | Show directory size.                                    |
+| `df -h`                       | Display disk space usage.                               |
+| `chmod <perm> <file>`         | Change file permissions.                                |
+| `chown <user>:<group> <file>` | Change file ownership.                                  |
+
+3. Network Troubleshooting
+| Command             | Usage                                                  |
+| ------------------- | ------------------------------------------------------ |
+| `ping <host>`       | Test connectivity to a host.                           |
+| `ip addr`           | Display network interface addresses.                   |
+| `curl <url>`        | Retrieve data from a URL or test web services.         |
+| `dig <domain>`      | Query DNS records for a domain.                        |
+| `nslookup <domain>` | Look up DNS information.                               |
+| `ss -tuln`          | Show listening ports and network connections.          |
+| `traceroute <host>` | Trace the route packets take to a host.                |
+| `hostname -I`       | Display local IP addresses.                            |
+| `netstat -tuln`     | Show network connections and listening ports (legacy). |
+| `wget <url>`        | Download files from the web.                           |
+
+
+</>Bash
+
+# Find a process
+pgrep firefox
+
+# Kill a process
+kill 1234
+
+# Create a directory
+mkdir projects
+
+# Find a file
+find /home -name notes.txt
+
+# Check IP address
+ip addr
+
+# Test connectivity
+ping google.com
+
+# Check DNS records
+dig openai.com
+
+# Fetch a webpage
+curl https://example.com
+
