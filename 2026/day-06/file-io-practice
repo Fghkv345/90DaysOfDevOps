@@ -1,0 +1,127 @@
+## **Exercise: Basic File Read & Write**
+
+* **Target File:** `notes.txt`
+* **Objective:** Practice file creation, overwriting, appending, pipe redirection with `tee`, and targeted line retrieval using `head` and `tail`.
+
+---
+
+## **1. File Creation & Line Appends**
+
+### Command 1: Initialize File
+
+```bash
+touch notes.txt
+
+```
+
+* **Observation:** Created an empty file named `notes.txt` in the current working directory.
+
+---
+
+### Command 2: Initial Write (Overwrite Redirection `>`)
+
+```bash
+echo "Line 01: System initialized" > notes.txt
+echo "Line 02: Kernel parameters checked" >> notes.txt
+echo "Line 03: Filesystem mounted successfully" >> notes.txt
+
+```
+
+* **Observation:** Written 3 initial status lines. Line 1 used `>` to ensure a clean overwrite, while lines 2 and 3 used `>>` to append sequentially.
+
+---
+
+### Command 3: Append & Display Simultaneously (`tee -a`)
+
+```bash
+echo "Line 04: Monitoring service started" | tee -a notes.txt
+
+```
+
+```text
+Line 04: Monitoring service started
+
+```
+
+* **Observation:** `tee -a` successfully appended the string to `notes.txt` while printing standard output directly to the terminal.
+
+---
+
+### Command 4: Populate Additional Lines for Range Testing
+
+```bash
+echo "Line 05: Network interfaces up" >> notes.txt
+echo "Line 06: Firewall rules applied" >> notes.txt
+echo "Line 07: Storage check completed" >> notes.txt
+echo "Line 08: Runbook practice complete" >> notes.txt
+
+```
+
+* **Observation:** Appended 4 more lines using `>>`. Total file length is now exactly 8 lines.
+
+---
+
+## **2. File Inspection & Reading**
+
+### Command 5: Read Full File (`cat`)
+
+```bash
+cat notes.txt
+
+```
+
+```text
+Line 01: System initialized
+Line 02: Kernel parameters checked
+Line 03: Filesystem mounted successfully
+Line 04: Monitoring service started
+Line 05: Network interfaces up
+Line 06: Firewall rules applied
+Line 07: Storage check completed
+Line 08: Runbook practice complete
+
+```
+
+* **Observation:** `cat` printed all 8 lines stored in `notes.txt` to stdout.
+
+---
+
+### Command 6: Inspect Head (`head`)
+
+```bash
+head -n 2 notes.txt
+
+```
+
+```text
+Line 01: System initialized
+Line 02: Kernel parameters checked
+
+```
+
+* **Observation:** Output restricted to the first 2 lines of `notes.txt`.
+
+---
+
+### Command 7: Inspect Tail (`tail`)
+
+```bash
+tail -n 2 notes.txt
+
+```
+
+```text
+Line 07: Storage check completed
+Line 08: Runbook practice complete
+
+```
+
+* **Observation:** Output restricted to the final 2 lines of `notes.txt`.
+
+---
+
+## **Key Takeaways**
+
+* `>` vs `>>`: Single standard redirection (`>`) destroys pre-existing file content before writing. Double redirection (`>>`) safely appends to the end of the stream.
+* `tee` versatility: `tee` splits the stdout stream—useful when you want to pipe data into a command or stdout while logging to a file in a single step (use `-a` to append instead of overwrite).
+* Targeted Reads: Combine `head` and `tail` with `-n <number>` to quickly inspect logs without dumping whole files into memory or screen buffers.
