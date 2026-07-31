@@ -1,0 +1,244 @@
+## **Target Service / Process**
+
+* **Service Name:** `nginx.service`
+* **Process Name:** `nginx`
+* **PID:** `2418` (Master)
+* **Objective:** Health snapshot, state verification, and escalation steps.
+
+---
+
+## **1. Environment Basics**
+
+### Command 1: OS & Kernel Version
+
+```bash
+uname -a
+
+```
+
+```text
+Linux web-prod-01 6.8.0-40-generic #40-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 12 11:20:18 UTC 2024 x86_64 GNU/Linux
+
+```
+
+* **Observation:** System is running 64-bit Linux kernel version 6.8 on x86_64 architecture.
+
+### Command 2: Release Info
+
+```bash
+cat /etc/os-release
+
+```
+
+```text
+NAME="Ubuntu"
+VERSION="24.04 LTS (Noble Numbat)"
+ID=ubuntu
+PRETTY_NAME="Ubuntu 24.04 LTS"
+
+```
+
+* **Observation:** Verified OS distribution as Ubuntu 24.04 LTS; standard long-term support release.
+
+---
+
+## **2. Filesystem Sanity**
+
+### Command 3: Temp Directory & File Test
+
+```bash
+mkdir -p /tmp/runbook-demo && cp /etc/hosts /tmp/runbook-demo/hosts-copy && ls -la /tmp/runbook-demo
+
+```
+
+```text
+total 12
+drwxr-xr-x 2 root root 4096 Jul 31 18:02 .
+drwxrwxrwt 9 root root 4096 Jul 31 18:02 ..
+-rw-r--r-- 1 root root  241 Jul 31 18:02 hosts-copy
+
+```
+
+* **Observation:** Temporary write test succeeded; root filesystem is mounted read-write and inode availability is normal.
+
+---
+
+## **3. Snapshot: CPU & Memory**
+
+### Command 4: Memory Usage
+
+```bash
+free -h
+
+```
+
+```text
+               total        used        free      shared  buff/cache   available
+Mem:           15Gi       3.2Gi       8.1Gi       120Mi       4.3Gi      11.8Gi
+Swap:         2.0Gi          0B       2.0Gi
+
+```
+
+* **Observation:** Memory usage is healthy; 11.8 GiB available with zero active swap utilization.
+
+### Command 5: Process Specific Resource Usage
+
+```bash
+ps -o pid,pcpu,pmem,comm -p 2418
+
+```
+
+```text
+  PID %CPU %MEM COMMAND
+ 2418  0.1  0.2 nginx
+
+```
+
+* **Observation:** Master Nginx process (PID 2418) is consuming nominal CPU (0.1%) and RAM (0.2%).
+
+---
+
+## **4. Snapshot: Disk & IO**
+
+### Command 6: Disk Space Usage
+
+```bash
+df -h / /var/log
+
+```
+
+```text
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        49G   14G   33G  30% /
+
+```
+
+* **Observation:** Root filesystem sits at 30% capacity (33GB available); no imminent disk space exhaustion.
+
+### Command 7: System IO & Virtual Memory Metrics
+
+```bash
+vmstat 1 3
+
+```
+
+```text
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 8493440  410200 4508800    0    0     1    12   45   82  1  1 98  0  0
+ 0  0      0 8493412  410200 4508800    0    0     0     0  112  204  0  0 100 0  0
+ 0  0      0 8493412  410200 4508800    0    0     0    16   98  180  0  0 100 0  0
+
+```
+
+* **Observation:** CPU is 100% idle across sample windows (`id`), with zero IO wait (`wa`) and no swapped memory (`si`/`so`).
+
+---
+
+## **5. Snapshot: Network**
+
+### Command 8: Listening Ports
+
+```bash
+ss -tulpn | grep nginx
+
+```
+
+```text
+tcp   LISTEN 0      511          0.0.0.0:80        0.0.0.0:*    users:(("nginx",pid=2419,fd=6),("nginx",pid=2418,fd=6))
+tcp   LISTEN 0      511             [::]:80           [::]:*    users:(("nginx",pid=2419,fd=6),("nginx",pid=2418,fd=6))
+
+```
+
+* **Observation:** Nginx is actively listening on Port 80 for both IPv4 and IPv6 traffic.
+
+### Command 9: Service Endpoint Probe
+
+```bash
+curl -I http://localhost/
+
+```
+
+```text
+HTTP/1.1 200 OK
+Server: nginx/1.24.0 (Ubuntu)
+Date: Fri, 31 Jul 2026 18:05:00 GMT
+Content-Type: text/html
+Content-Length: 612
+Connection: keep-alive
+
+```
+
+* **Observation:** HTTP endpoint returned an immediate `200 OK` response.
+
+---
+
+## **6. Logs Reviewed**
+
+### Command 10: Systemd Journal Logs
+
+```bash
+journalctl -u nginx -n 50 --no-pager
+
+```
+
+```text
+Jul 31 10:00:12 web-prod-01 systemd[1]: Starting Nginx - high performance web server...
+Jul 31 10:00:12 web-prod-01 systemd[1]: Started Nginx - high performance web server.
+Jul 31 12:00:01 web-prod-01 systemd[1]: Reloaded Nginx - high performance web server.
+
+```
+
+* **Observation:** No crash or restart loops detected in unit history; clean configuration reloads logged.
+
+### Command 11: Nginx Error Log
+
+```bash
+tail -n 50 /var/log/nginx/error.log
+
+```
+
+```text
+2026/07/31 14:22:01 [notice] 2418#2418: signal process started
+2026/07/31 16:05:12 [warn] 2419#2419: *124 worker_connections are not enough while connecting to upstream
+
+```
+
+* **Observation:** Minor historical warning about `worker_connections` limit; no critical runtime fatal errors in recent log window.
+
+---
+
+## **7. Quick Findings**
+
+* **Health:** Operational. Nginx is bound to Port 80, responding with `HTTP 200`, and consuming minimal CPU/RAM.
+* **Storage/IO:** Disk write capability is functional and memory pressure is low.
+* **Potential Risk:** Non-fatal log warnings suggest connection pooling (`worker_connections`) may need tuning under heavier traffic load.
+
+---
+
+## **8. If This Worsens (Next Steps)**
+
+1. **Perform Graceful Service Reload / Worker Adjustment**
+* Edit `/etc/nginx/nginx.conf` to increase `worker_connections 1024` to `4096`.
+* Test configuration validity: `nginx -t`
+* Graceful reload without dropping connections: `systemctl reload nginx`
+
+
+2. **Trace System Calls for Hanging / High CPU Processes**
+* If Nginx processes freeze or block on IO, attach `strace` to trace active system calls:
+```bash
+strace -p 2418 -f -e trace=network,file -s 1024
+
+```
+
+
+
+
+3. **Escalate Log Verbosity & Track Active Connections**
+* Change log level in `/etc/nginx/nginx.conf` to `error_log /var/log/nginx/error.log debug;` and reload.
+* Monitor real-time connection state transitions:
+```bash
+ss -s
+netstat -an | grep :80 | awk '{print $6}' | sort | uniq -c
+
+```
